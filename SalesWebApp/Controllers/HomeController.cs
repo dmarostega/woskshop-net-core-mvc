@@ -12,12 +12,14 @@ namespace SalesWebApp.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Author"] = "Diogo Marostega de Oliveira";
+            ViewData["AplicationName"] = "SysSellers";
             return View();
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Home da aplicação!!.";
 
             return View();
         }
