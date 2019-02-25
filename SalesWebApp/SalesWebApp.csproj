@@ -5,7 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Departments\**" />
+    <Content Remove="Views\Departments\**" />
+    <EmbeddedResource Remove="Views\Departments\**" />
+    <None Remove="Views\Departments\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Controllers\Department.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Departments\Create.cshtml" />
+    <None Include="Views\Departments\Delete.cshtml" />
+    <None Include="Views\Departments\Details.cshtml" />
+    <None Include="Views\Departments\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
