@@ -12,7 +12,7 @@ namespace SalesWebApp.Models
 
         public SalesRecord(int Id,DateTime Date, double Amount, SaleStatus Status,Seller Seller)
         {
-            id = Id;
+            /*id = Id;*/
             date = Date;
             amount = Amount;
             status = Status;

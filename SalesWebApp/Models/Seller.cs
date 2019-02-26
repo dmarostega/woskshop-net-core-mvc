@@ -10,7 +10,7 @@ namespace SalesWebApp.Models
 
         public Seller(int Id, String Name, String Email, DateTime BirthDate, Double BaseSalary, Department Department/*, SalesRecord SalesRecord*/)
         {
-            id = Id;
+           /*id = Id;*/
             name = Name;
             email = Email;
             birthDate = BirthDate;

@@ -10,7 +10,7 @@ namespace SalesWebApp.Models
         public Department() { }
         public Department(int _Id, String _Name)
         {
-            Id = Id;
+           /* Id = Id; */
             Name = _Name;
         }
 
