@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace SalesWebApp.Models
@@ -21,11 +22,22 @@ namespace SalesWebApp.Models
             //salesRecord.Add(SalesRecord);
         }
         public int id { get; set; }
+        [Display(Name = "Nome")]
         public String name { get; set; }
+
+        [Display(Name = "Email")]
         public String email { get; set; }
+
+        [Display(Name = "Nascimento")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
         public DateTime birthDate { get; set; }
+
+        [Display(Name = "Remuneração")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public Double baseSalary { get; set; }
 
+        [Display(Name = "Departamento")]
         public Department department { get; set; }
 
         /*  int departmentId -> serve para obrigar o framework Entity a setar no banco de dados a coluna departmentId como NOT NULL*/
