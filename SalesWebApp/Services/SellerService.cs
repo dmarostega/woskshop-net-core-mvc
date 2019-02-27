@@ -1,4 +1,5 @@
-﻿using SalesWebApp.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,10 @@ namespace SalesWebApp.Services
         }
 
         public Seller findById(int id)
-        {
-            return _context.Seller.FirstOrDefault(x => x.id == id);
+        {   /*  old    */
+            //return _context.Seller.FirstOrDefault(x => x.id == id);
+            /*  eager loading*/
+            return _context.Seller.Include(obj => obj.department).FirstOrDefault(obj => obj.id == id);
         }
 
         public  void remove(int id)
