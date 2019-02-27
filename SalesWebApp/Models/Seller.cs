@@ -28,6 +28,8 @@ namespace SalesWebApp.Models
 
         public Department department { get; set; }
 
+        /*  int departmentId -> serve para obrigar o framework Entity a setar no banco de dados a coluna departmentId como NOT NULL*/
+        public int departmentId { get; set; }
         public ICollection<SalesRecord> salesRecord { get; set; } = new List<SalesRecord>(); 
 
         public void AddSales(SalesRecord sr)
