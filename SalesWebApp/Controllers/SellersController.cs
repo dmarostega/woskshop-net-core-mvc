@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,6 @@ using SalesWebApp.Services.Exceptions;
 
 namespace SalesWebApp.Controllers
 {
-
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
@@ -21,7 +21,7 @@ namespace SalesWebApp.Controllers
             _sellerService = sellerService;
             _departmentService = departmentService;
         }
-                
+
         public IActionResult Index()
         {
             var list = _sellerService.findAll();
@@ -31,7 +31,7 @@ namespace SalesWebApp.Controllers
         public IActionResult Create()
         {
             var departments = _departmentService.FindAll();
-            var viewModel = new SellerFormViewModel() { Departments = departments};
+            var viewModel = new SellerFormViewModel() { Departments = departments };
             return View(viewModel);
         }
 
@@ -49,39 +49,41 @@ namespace SalesWebApp.Controllers
         {
             if (id != seller.id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Identificador não correspondente !!" });
             }
             try
             {
                 _sellerService.Update(seller);
                 return RedirectToAction(nameof(Index));
-            }catch(NotFoundException)
-            {
-                return NotFound();
             }
-            catch (DbConcurrencyException)
+            catch (NotFoundException e)
             {
-                return BadRequest();
+                //return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
+            catch (DbConcurrencyException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
 
         }
         public IActionResult Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Identificador não fornecido !!" });
             }
 
             var obj = _sellerService.findById(id.Value);
 
-            if(obj == null)
+            if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
             }
 
             List<Department> departments = _departmentService.FindAll();
-            var viewModel = new SellerFormViewModel { Seller =  obj, Departments = departments };
-            
+            var viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+
             return View(viewModel);
         }
 
@@ -89,13 +91,14 @@ namespace SalesWebApp.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Identificador não fornecido !!" });
+
             }
 
             var obj = _sellerService.findById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
             }
 
 
@@ -114,19 +117,29 @@ namespace SalesWebApp.Controllers
 
         public IActionResult Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Identificador não fornecido !!" });
             }
 
             var obj = _sellerService.findById(id.Value);
-            if(obj == null)
+            if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
             }
 
             //return to View/Seller/delete.cshtml
             return View(obj);
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
