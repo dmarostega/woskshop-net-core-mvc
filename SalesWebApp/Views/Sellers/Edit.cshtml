@@ -14,25 +14,33 @@
 
         <label asp-for="Seller.name"></label>
         <input asp-for="Seller.name" />
+        <span asp-validation-for="Seller.name" class="text-danger"></span>
 
         <label asp-for="Seller.email"></label>
         <input asp-for="Seller.email" />
+        <span asp-validation-for="Seller.email" class="text-danger"></span>
+
 
         <label asp-for="Seller.birthDate"></label>
         <input asp-for="Seller.birthDate" />
+        <span asp-validation-for="Seller.birthDate" class="text-danger"></span>
 
         <label asp-for="Seller.baseSalary"></label>
         <input asp-for="Seller.baseSalary" />
-
+        <span asp-validation-for="Seller.baseSalary" class="text-danger"></span>
 
         <label asp-for="Seller.departmentId"></label>
         <select asp-for="Seller.departmentId" asp-items="@(new SelectList(Model.Departments,"Id","Name"))"></select>
         <!--
-            <label asp-for="department"></label>
-            <select asp-for="department"></select>
-        -->
+        <label asp-for="department"></label>
+        <select asp-for="department"></select>
+    -->
 
         <input type="submit" value="Salvar" />
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
     </form>
 
 </div>

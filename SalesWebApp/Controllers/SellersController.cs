@@ -39,6 +39,11 @@ namespace SalesWebApp.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(seller);
+            }
+
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
@@ -47,6 +52,11 @@ namespace SalesWebApp.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(seller);
+            }
+
             if (id != seller.id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador não correspondente !!" });
@@ -100,8 +110,6 @@ namespace SalesWebApp.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
             }
-
-
             return View(obj);
         }
 
