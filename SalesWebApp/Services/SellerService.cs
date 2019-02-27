@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesWebApp.Models;
+using SalesWebApp.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,5 +43,15 @@ namespace SalesWebApp.Services
             _context.Seller.Remove(obj);
             _context.SaveChanges();
         }
+        public void Update(Seller obj)
+        {
+            if (!_context.Seller.Any(x => x.id == obj.id))
+            {
+                throw new NotFoundException("Id Not Found!");
+            }
+            _context.Update(obj);
+            _context.SaveChanges();
+        }
+
     }
 }
