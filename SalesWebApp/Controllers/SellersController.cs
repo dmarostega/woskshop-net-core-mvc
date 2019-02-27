@@ -22,41 +22,41 @@ namespace SalesWebApp.Controllers
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _sellerService.findAll();
+            var list = await _sellerService.findAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
             var viewModel = new SellerFormViewModel() { Departments = departments };
             return View(viewModel);
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel() { Departments = departments };
                 return View(viewModel);
             }
 
-            _sellerService.Insert(seller);
+            await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel() { Departments = departments };
                 return View(viewModel);
             }
@@ -67,7 +67,7 @@ namespace SalesWebApp.Controllers
             }
             try
             {
-                _sellerService.Update(seller);
+                await _sellerService.UpdateAsync(seller);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException e)
@@ -81,27 +81,27 @@ namespace SalesWebApp.Controllers
             }
 
         }
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador não fornecido !!" });
             }
 
-            var obj = _sellerService.findById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
             }
 
-            List<Department> departments = _departmentService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
             var viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
 
             return View(viewModel);
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -109,7 +109,7 @@ namespace SalesWebApp.Controllers
 
             }
 
-            var obj = _sellerService.findById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
@@ -119,22 +119,22 @@ namespace SalesWebApp.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerService.remove(id);
+           await _sellerService.removeAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
 
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador não fornecido !!" });
             }
 
-            var obj = _sellerService.findById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Identificador Nulo !!" });
