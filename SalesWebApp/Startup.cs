@@ -50,6 +50,7 @@ namespace SalesWebApp
             /*  Registra serviço de injeção de dados    */
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<DepartmentService>();
 
 
         }

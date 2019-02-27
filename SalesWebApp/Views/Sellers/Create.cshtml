@@ -1,5 +1,5 @@
 ﻿
-@model SalesWebApp.Models.Seller;
+@model SalesWebApp.Models.ViewModels.SellerFormViewModel;
 
 
 @{
@@ -13,18 +13,23 @@
         <!--<label asp-for="id"></label>
     <input asp-for="id" />
         -->
-        <label asp-for="name"></label>
-        <input asp-for="name" />
+        <label asp-for="Seller.name"></label>
+        <input asp-for="Seller.name" />
 
-        <label asp-for="email"></label>
-        <input asp-for="email" />
+        <label asp-for="Seller.email"></label>
+        <input asp-for="Seller.email" />
 
-        <label asp-for="birthDate"></label>
-        <input asp-for="birthDate" />
+        <label asp-for="Seller.birthDate"></label>
+        <input asp-for="Seller.birthDate" />
 
-        <label asp-for="baseSalary"></label>
-        <input asp-for="baseSalary" />
+        <label asp-for="Seller.baseSalary"></label>
+        <input asp-for="Seller.baseSalary" />
 
+
+        <label asp-for="Seller.departmentId"></label>
+        <select asp-for="Seller.departmentId" asp-items="@(new SelectList(Model.Departments,"Id","Name"))">
+
+        </select>
         <!--
         <label asp-for="department"></label>
         <select asp-for="department"></select>
