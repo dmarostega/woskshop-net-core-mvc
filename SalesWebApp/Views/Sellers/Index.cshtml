@@ -1,53 +1,42 @@
-﻿@model IEnumerable<SalesWebApp.Models.Seller>
+﻿@model IEnumerable<SalesWebApp.Models.Seller>;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vendedores";
 }
 
-<h2>Index</h2>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Novo</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.birthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.baseSalary)
-            </th>
-            <th></th>
+            <td>Código</td>
+            <!-- OR @Html.DisplayNameFor(model => model.id) -->
+            <td>Nome</td>
+            <td>Email</td>
+            <td>Nascimento</td>
+            <td>Renumeração</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.birthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.baseSalary)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.id)</td> 
+                <td>@Html.DisplayFor(modelItem => item.name)</td>
+                <td>@Html.DisplayFor(modelItem => item.birthDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.baseSalary)</td>
+                <td>
+                    <a asp-controller="Sellers" asp-action="Edit">Editar</a>
+                    <a asp-controller="Sellers" asp-action="Details">Detalhes</a>
+                    <a asp-controller="Sellers" asp-action="Remove">Deletar</a>
+                </td>
+            </tr>
+        }
+
     </tbody>
 </table>

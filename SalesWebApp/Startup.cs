@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using SalesWebApp.Models;
 using SalesWebApp.Data;
+using SalesWebApp.Services;
 
 namespace SalesWebApp
 {
@@ -48,6 +49,7 @@ namespace SalesWebApp
 
             /*  Registra serviço de injeção de dados    */
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
 
 
         }
