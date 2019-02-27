@@ -1,0 +1,47 @@
+﻿@model SalesWebApp.Models.Seller;
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Você realemente deseja deletar esse item?</h3>
+<div>
+    <h3>Seller</h3>
+
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.birthDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.birthDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.baseSalary)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.baseSalary)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Remove" />
+        <a asp-action="Index">Return to List</a>
+    </form>
+</div>
+
+
+

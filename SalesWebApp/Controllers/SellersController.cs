@@ -52,6 +52,31 @@ namespace SalesWebApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.remove(id);
 
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public IActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.findById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            //return to View/Seller/delete.cshtml
+            return View(obj);
+        }
     }
 }
