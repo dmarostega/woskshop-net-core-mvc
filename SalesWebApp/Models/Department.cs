@@ -24,7 +24,7 @@ namespace SalesWebApp.Models
             Sellers.Add(Seller);
         }
 
-        public double totalSales(DateTime initial, DateTime final)
+        public double TotalSales(DateTime initial, DateTime final)
         {
             return Sellers.Sum(
                             seller => seller.totalSales(initial,final)
