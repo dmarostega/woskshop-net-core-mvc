@@ -9,7 +9,7 @@ namespace SalesWebApp.Services
 {
     public class DepartmentService
     {
-        private SalesWebAppContext _context;
+        private readonly SalesWebAppContext _context;
 
         public DepartmentService(SalesWebAppContext context) {
             _context = context;
