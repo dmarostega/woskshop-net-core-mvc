@@ -70,15 +70,22 @@ namespace SalesWebApp.Controllers
                 await _sellerService.UpdateAsync(seller);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException e)
+            /*  OS DOIS PODEM SEREM SUBSTITUÍDO PELO SUPER CLASSE APPLICATIONEXCEPTION (UPCASTING)
+             * catch (NotFoundException e)
+             {
+                 //return NotFound();
+                 return RedirectToAction(nameof(Error), new { message = e.Message });
+             }
+             catch (DbConcurrencyException e)
+             {
+                 return RedirectToAction(nameof(Error), new { message = e.Message });
+             }
+             */
+            catch (ApplicationException e)
             {
-                //return NotFound();
                 return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyException e)
-            {
-                return RedirectToAction(nameof(Error), new { message = e.Message });
-            }
+
 
         }
         public async Task<IActionResult> Edit(int? id)

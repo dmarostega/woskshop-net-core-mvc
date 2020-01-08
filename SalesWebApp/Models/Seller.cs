@@ -30,6 +30,7 @@ namespace SalesWebApp.Models
 
         [Required(ErrorMessage = "{0} é obrigatório!)")]
         [EmailAddress(ErrorMessage = "{0} possui formato inválido")]
+        //[DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public String email { get; set; }
 
